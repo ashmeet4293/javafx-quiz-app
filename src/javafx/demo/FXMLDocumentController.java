@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pckgcommon.Common;
+import pckgdatabase.AdminDBUtils;
 
 /**
  *
@@ -37,6 +38,7 @@ public class FXMLDocumentController implements Initializable {
     private ComboBox<String> comboLoginType;
     
     StudentDBUtils studentDBUtils;
+    AdminDBUtils adminDBUtils;
     Common common;
     
 
@@ -52,13 +54,25 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleLoginButtonPressed(ActionEvent event) throws IOException {
        studentDBUtils=new StudentDBUtils();
+       adminDBUtils=new AdminDBUtils();
        String userType=comboLoginType.getSelectionModel().getSelectedItem();
        if(userType.equals("admin")){
-           
+           if(adminDBUtils.loginValidation(txtUsername.getText(), txtPassword.getText())){
+               common=new Common();
+               common.nextStage("/admindashboard/Admin.fxml", "Admin Window ", true);
+               
+               Stage current= (Stage) txtUsername.getScene().getWindow();
+               current.hide();
+               
+               
+               System.out.println("Login Successful");
+           }else{
+               System.out.println("Login insuccessful");
+           }
        }else{
            if(studentDBUtils.loginValidation(txtUsername.getText(), txtPassword.getText())){
                common=new Common();
-               common.nextStage("/admindashboard/Admin.fxml", "Admin Window ", true);
+               common.nextStage("/admindashboard/Admin.fxml", "Student Window ", true);
                
                Stage current= (Stage) txtUsername.getScene().getWindow();
                current.hide();
