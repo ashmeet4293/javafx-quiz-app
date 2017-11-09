@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="472.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admindashboard.AdminController">
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="1131.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admindashboard.AdminController">
    <children>
       <Label layoutX="36.0" layoutY="55.0" text="Student Regisration" textFill="#bc3333">
          <font>
@@ -115,5 +115,14 @@
             </Button>
          </children>
       </HBox>
+      <TableView layoutX="375.0" layoutY="55.0" prefHeight="210.0" prefWidth="678.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="ID" />
+          <TableColumn prefWidth="116.0" text="admin Name" />
+            <TableColumn prefWidth="102.0" text="Password" />
+            <TableColumn prefWidth="226.0" text="Security Question" />
+            <TableColumn prefWidth="130.0" text="Security Answer" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

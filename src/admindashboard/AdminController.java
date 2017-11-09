@@ -39,8 +39,6 @@ public class AdminController implements Initializable {
     private Admin admin;
     private AdminDBUtils adminDBUtils;
     @FXML
-    private GridPane cmbSecurityQuestion;
-    @FXML
     private ComboBox<String> cmbSecurityQuestions;
 
     /**
@@ -78,6 +76,7 @@ public class AdminController implements Initializable {
 
     @FXML
     private void handleClearAction(ActionEvent event) {
+        clear();
     }
 
     @FXML
@@ -94,6 +93,7 @@ public class AdminController implements Initializable {
 
         if (adminDBUtils.createAdmin(admin)) {
             System.out.println("Admin inserted Successfully");
+            clear();
         }
 
     }
@@ -106,4 +106,12 @@ public class AdminController implements Initializable {
     private void hanldeDeleteAction(ActionEvent event) {
     }
 
+    
+    private void clear(){
+        txtId.clear();
+        txtName.clear();
+        txtPassword.clear();
+        txtSecurityAnswer.clear();
+        cmbSecurityQuestions.getSelectionModel().clearSelection();
+    }
 }
