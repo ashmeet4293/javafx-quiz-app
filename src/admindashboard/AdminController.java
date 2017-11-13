@@ -6,6 +6,7 @@
 package admindashboard;
 
 import com.sms.entity.Admin;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -14,10 +15,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import pckgcommon.Common;
 import pckgdatabase.AdminDBUtils;
 
 /**
@@ -36,10 +44,28 @@ public class AdminController implements Initializable {
     @FXML
     private TextField txtSecurityAnswer;
 
-    private Admin admin;
-    private AdminDBUtils adminDBUtils;
     @FXML
     private ComboBox<String> cmbSecurityQuestions;
+    @FXML
+    private GridPane cmbSecurityQuestion;
+    @FXML
+    private TableColumn<Admin, Integer> colId;
+    @FXML
+    private TableColumn<Admin, String> colAdminName;
+    @FXML
+    private TableColumn<Admin, String> colPassword;
+    @FXML
+    private TableColumn<Admin, String> colSecurityQuestion;
+    @FXML
+    private TableColumn<Admin, String> colSecurityAnswer;
+    @FXML
+    private TableView<Admin> tblAdminData;
+
+    private Admin admin;
+    private AdminDBUtils adminDBUtils;
+    ObservableList<Admin> listOfAdmin;
+    @FXML
+    private Label lblShow;
 
     /**
      * Initializes the controller class.
@@ -83,8 +109,7 @@ public class AdminController implements Initializable {
     private void handleSaveAction(ActionEvent event) {
         admin = new Admin();
         adminDBUtils = new AdminDBUtils();
-        String securityQuestion=cmbSecurityQuestions.getSelectionModel().getSelectedItem();
-        
+        String securityQuestion = cmbSecurityQuestions.getSelectionModel().getSelectedItem();
 
         admin.setAdminName(txtName.getText());
         admin.setPassword(txtPassword.getText());
@@ -104,14 +129,61 @@ public class AdminController implements Initializable {
 
     @FXML
     private void hanldeDeleteAction(ActionEvent event) {
+        Integer id = Integer.parseInt(txtId.getText());
+
     }
 
-    
-    private void clear(){
+    private void clear() {
         txtId.clear();
         txtName.clear();
         txtPassword.clear();
         txtSecurityAnswer.clear();
         cmbSecurityQuestions.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    private void hanldeLoadAction(ActionEvent event) {
+        
+        admin = new Admin();
+        adminDBUtils = new AdminDBUtils();
+        listOfAdmin = adminDBUtils.fetchData();
+        if ((listOfAdmin) != null) {
+            colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+            colAdminName.setCellValueFactory(new PropertyValueFactory<>("adminName"));
+            colPassword.setCellValueFactory(new PropertyValueFactory<>("password"));
+            colSecurityQuestion.setCellValueFactory(new PropertyValueFactory<>("securityQuestion"));
+            colSecurityAnswer.setCellValueFactory(new PropertyValueFactory<>("securityAnswer"));
+
+            tblAdminData.setItems(listOfAdmin);
+
+        } else {
+            System.out.println("No data found ");
+        }
+    }
+
+    @FXML
+    private void hanldeMouseClickeAction(MouseEvent event) {
+        showTableDataOnFields();
+
+    }
+
+    void showTableDataOnFields() {
+        Admin admin = (Admin) tblAdminData.getSelectionModel().getSelectedItem();
+        txtId.setText("" + admin.getId());
+        txtName.setText(admin.getAdminName());
+        txtPassword.setText(admin.getPassword());
+        cmbSecurityQuestions.setValue(admin.getSecurityQuestion());
+        txtSecurityAnswer.setText(admin.getSecurityAnswer());
+
+    }
+
+    @FXML
+    private void hanldeLogoutAction(ActionEvent event) throws IOException {
+
+        Common common = new Common();
+        common.nextStage("/javafx/demo/FXMLDocument.fxml", "Login Window ", true);
+
+        Stage current = (Stage) txtPassword.getScene().getWindow();
+        current.hide();
     }
 }

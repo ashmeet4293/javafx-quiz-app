@@ -4,11 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/ashmeet/NetBeansProjects/JAvafx%20Demo/src/admindashboard/AdminController.java</file>
-            <file>file:/home/ashmeet/NetBeansProjects/JAvafx%20Demo/src/pckgdatabase/StudentDBUtils.java</file>
-            <file>file:/home/ashmeet/NetBeansProjects/JAvafx%20Demo/src/com/sms/entity/Admin.java</file>
+            <file>file:/home/ashmeet/NetBeansProjects/JAvafx%20Demo/src/com/quiz/quizwindow/QuizWindowController.java</file>
+            <file>file:/home/ashmeet/NetBeansProjects/JAvafx%20Demo/src/com/sms/entity/Question.java</file>
+            <file>file:/home/ashmeet/NetBeansProjects/JAvafx%20Demo/src/pckgdatabase/QuestionDBUtils.java</file>
             <file>file:/home/ashmeet/NetBeansProjects/JAvafx%20Demo/src/pckgcommon/Common.java</file>
             <file>file:/home/ashmeet/NetBeansProjects/JAvafx%20Demo/src/javafx/demo/FXMLDocumentController.java</file>
-            <file>file:/home/ashmeet/NetBeansProjects/JAvafx%20Demo/src/pckgdatabase/AdminDBUtils.java</file>
         </group>
     </open-files>
 </project-private>

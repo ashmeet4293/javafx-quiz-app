@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quiz.quizwindow.QuizWindowController">
+   <children>
+      <Label fx:id="lblQuestion" layoutX="121.0" layoutY="107.0" text="Samle Question">
+         <font>
+            <Font size="43.0" />
+         </font>
+      </Label>
+      <VBox layoutX="121.0" layoutY="169.0" prefHeight="200.0" prefWidth="357.0">
+         <children>
+            <RadioButton fx:id="rdOpt1" mnemonicParsing="false" text="Option 1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </RadioButton>
+            <RadioButton fx:id="rdOpt2" mnemonicParsing="false" text="Option 2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </RadioButton>
+            <RadioButton fx:id="rdOpt3" mnemonicParsing="false" text="Option 3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </RadioButton>
+            <RadioButton fx:id="rdOpt4" mnemonicParsing="false" text="Option 4">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </RadioButton>
+         </children>
+      </VBox>
+      <HBox layoutX="114.0" layoutY="384.0" prefHeight="50.0" prefWidth="418.0">
+         <children>
+            <Button fx:id="btnLoad" mnemonicParsing="false" onAction="#hanldeLoadButtonAction" text="Load">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnSubmit" mnemonicParsing="false" onAction="#hanldeSubmitButtonAction" text="submit">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <Label fx:id="lblSTatus" layoutX="145.0" layoutY="445.0" prefHeight="58.0" prefWidth="698.0" text="Status" textFill="#298a4b">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

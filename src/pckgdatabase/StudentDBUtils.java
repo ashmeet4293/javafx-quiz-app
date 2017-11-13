@@ -14,7 +14,30 @@ public class StudentDBUtils {
     PreparedStatement preparedStatement;
     ResultSet resultSet;
     Connection connection = DatabaseConnector.databaseConnector();
+  String username;
+    
 
+    public boolean insertMarks(int marks ,String username){
+        if (connection != null) {
+            String query = "UPDATE students SET marks_obtained=? WHERE Uname=?";
+            try {
+                System.out.println("MARKS : "+marks+" USERNAME : "+username);
+                preparedStatement = connection.prepareStatement(query);
+               
+                preparedStatement.setInt(1,marks );
+                preparedStatement.setString(2, username);
+
+                preparedStatement.executeUpdate();
+                connection.close();
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return false;
+        
+    }
     public boolean createStudent(Student student) {
         if (connection != null) {
             String query = "INSERT INTO Student (Namel, Address,sem,roll) VALUES (?,?,?,?)";
@@ -106,7 +129,7 @@ public class StudentDBUtils {
             try {
                 System.out.println("USERNAME : "+username);
                 System.out.println("PASSWORD : "+password);
-                String query= "SELECT * FROM Student Where username=? AND password=? ";
+                String query= "SELECT * FROM students Where Uname=? AND Pass=? ";
                 preparedStatement=connection.prepareStatement(query);
                 preparedStatement.setString(1, username);
                 preparedStatement.setString(2, password);
@@ -123,5 +146,13 @@ public class StudentDBUtils {
         }
         return false;
         
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

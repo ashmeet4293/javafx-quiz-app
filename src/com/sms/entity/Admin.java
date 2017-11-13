@@ -21,7 +21,8 @@ public class Admin {
 
     }
 
-    public Admin(String adminName, String password, String securityQuestion, String securityAnswer) {
+    public Admin(int id, String adminName, String password, String securityQuestion, String securityAnswer) {
+        this.id=id;
         this.adminName = adminName;
         this.password = password;
         this.securityQuestion = securityQuestion;

@@ -86,14 +86,14 @@
             <Menu mnemonicParsing="false" onAction="#hanldeReportAction" text="Report" />
             <Menu mnemonicParsing="false" text="Exit">
               <items>
-                <MenuItem mnemonicParsing="false" text="Logout" />
+                <MenuItem mnemonicParsing="false" onAction="#hanldeLogoutAction" text="Logout" />
               </items>
             </Menu>
         </menus>
       </MenuBar>
-      <HBox layoutX="18.0" layoutY="339.0" prefHeight="29.0" prefWidth="312.0">
+      <HBox layoutX="18.0" layoutY="339.0" prefHeight="24.0" prefWidth="400.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleClearAction" prefHeight="40.0" prefWidth="78.0" text="Clear ">
+            <Button mnemonicParsing="false" onAction="#handleClearAction" prefHeight="29.0" prefWidth="79.0" text="Clear ">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
@@ -108,21 +108,31 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
+         </children>
+      </HBox>
+      <TableView fx:id="tblAdminData" layoutX="375.0" layoutY="55.0" onMouseClicked="#hanldeMouseClickeAction" prefHeight="210.0" prefWidth="678.0">
+        <columns>
+          <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="colAdminName" prefWidth="116.0" text="admin Name" />
+            <TableColumn fx:id="colPassword" prefWidth="102.0" text="Password" />
+            <TableColumn fx:id="colSecurityQuestion" prefWidth="226.0" text="Security Question" />
+            <TableColumn fx:id="colSecurityAnswer" prefWidth="130.0" text="Security Answer" />
+        </columns>
+      </TableView>
+      <HBox layoutX="44.0" layoutY="378.0" prefHeight="23.0" prefWidth="189.0">
+         <children>
             <Button mnemonicParsing="false" onAction="#hanldeDeleteAction" prefHeight="40.0" prefWidth="78.0" text="Delete">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
+            <Button mnemonicParsing="false" onAction="#hanldeLoadAction" prefHeight="40.0" prefWidth="78.0" text="Load" />
          </children>
       </HBox>
-      <TableView layoutX="375.0" layoutY="55.0" prefHeight="210.0" prefWidth="678.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="ID" />
-          <TableColumn prefWidth="116.0" text="admin Name" />
-            <TableColumn prefWidth="102.0" text="Password" />
-            <TableColumn prefWidth="226.0" text="Security Question" />
-            <TableColumn prefWidth="130.0" text="Security Answer" />
-        </columns>
-      </TableView>
+      <Label fx:id="lblShow" layoutX="375.0" layoutY="353.0" prefHeight="50.0" prefWidth="172.0" text="Question">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

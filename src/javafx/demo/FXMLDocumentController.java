@@ -41,6 +41,7 @@ public class FXMLDocumentController implements Initializable {
     StudentDBUtils studentDBUtils;
     AdminDBUtils adminDBUtils;
     Common common;
+    private String username;
     
 
     
@@ -75,11 +76,14 @@ public class FXMLDocumentController implements Initializable {
                
            }
        }else{
-           if(studentDBUtils.loginValidation(txtUsername.getText(), txtPassword.getText())){
+           username=txtUsername.getText();
+           if(studentDBUtils.loginValidation(username, txtPassword.getText())){
+//               studentDBUtils.setUsername(username);
                common=new Common();
-               common.nextStage("/admindashboard/Admin.fxml", "Student Window ", true);
+               common.nextStage("/com/quiz/quizwindow/QuizWindow.fxml",username, true);
                
-               Stage current= (Stage) txtUsername.getScene().getWindow();
+               Stage current= (Stage) txtPassword.getScene().getWindow();
+//               current.getTitle();
                current.hide();
                
                
@@ -89,5 +93,16 @@ public class FXMLDocumentController implements Initializable {
            }
        }
     }
+
+    public String getUsername() {
+        System.out.println("USename is : "+username);
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    
     
 }
