@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="1131.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admindashboard.AdminController">
+<AnchorPane id="AnchorPane" prefHeight="433.0" prefWidth="1266.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admindashboard.AdminController">
    <children>
       <Label layoutX="36.0" layoutY="55.0" text="Student Regisration" textFill="#bc3333">
          <font>
@@ -110,13 +111,14 @@
             </Button>
          </children>
       </HBox>
-      <TableView fx:id="tblAdminData" layoutX="375.0" layoutY="55.0" onMouseClicked="#hanldeMouseClickeAction" prefHeight="210.0" prefWidth="678.0">
+      <TableView fx:id="tblAdminData" layoutX="375.0" layoutY="55.0" onMouseClicked="#hanldeMouseClickeAction" prefHeight="210.0" prefWidth="786.0">
         <columns>
           <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="colAdminName" prefWidth="116.0" text="admin Name" />
             <TableColumn fx:id="colPassword" prefWidth="102.0" text="Password" />
             <TableColumn fx:id="colSecurityQuestion" prefWidth="226.0" text="Security Question" />
             <TableColumn fx:id="colSecurityAnswer" prefWidth="130.0" text="Security Answer" />
+            <TableColumn fx:id="colImages" prefWidth="130.0" text="Images" />
         </columns>
       </TableView>
       <HBox layoutX="44.0" layoutY="378.0" prefHeight="23.0" prefWidth="189.0">
@@ -129,10 +131,8 @@
             <Button mnemonicParsing="false" onAction="#hanldeLoadAction" prefHeight="40.0" prefWidth="78.0" text="Load" />
          </children>
       </HBox>
-      <Label fx:id="lblShow" layoutX="375.0" layoutY="353.0" prefHeight="50.0" prefWidth="172.0" text="Question">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </Label>
+      <TextField fx:id="txtSearchField" alignment="CENTER" layoutX="480.0" layoutY="23.0" onKeyReleased="#hanldeKeyReleased" prefHeight="23.0" prefWidth="239.0" promptText="Seach By ID/ Name" />
+      <Button fx:id="btnBrowse" layoutX="218.0" layoutY="378.0" mnemonicParsing="false" onAction="#hanldeBrowseAction" prefHeight="25.0" prefWidth="98.0" text="Browse" />
+      <ImageView fx:id="imgView" fitHeight="159.0" fitWidth="210.0" layoutX="390.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

@@ -8,6 +8,8 @@ package com.quiz.quizwindow;
 import com.sms.entity.Question;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.demo.FXMLDocumentController;
@@ -75,6 +77,17 @@ public class QuizWindowController extends FXMLDocumentController implements Init
 
         btnLoad.setDisable(true);
         List<Question> questions = loadQuestion();
+//       Collections.shuffle(questions);
+
+//for loop
+
+
+
+
+
+
+
+        
         question = new Question();
         question = questions.get(i);
 
@@ -136,6 +149,8 @@ public class QuizWindowController extends FXMLDocumentController implements Init
         if (questions == null) {
             System.out.println("CAnnot fecth question");
         }
+//        Collections.shuffle(Arrays.asList(questions));
         return questions;
     }
+   
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -129,10 +130,8 @@
             <Button mnemonicParsing="false" onAction="#hanldeLoadAction" prefHeight="40.0" prefWidth="78.0" text="Load" />
          </children>
       </HBox>
-      <Label fx:id="lblShow" layoutX="375.0" layoutY="353.0" prefHeight="50.0" prefWidth="172.0" text="Question">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </Label>
+      <TextField fx:id="txtSearchField" alignment="CENTER" layoutX="480.0" layoutY="23.0" onKeyReleased="#hanldeKeyReleased" prefHeight="23.0" prefWidth="239.0" promptText="Seach By ID/ Name" />
+      <Button fx:id="btnBrowse" layoutX="218.0" layoutY="378.0" mnemonicParsing="false" onAction="#hanldeBrowseAction" prefHeight="25.0" prefWidth="98.0" text="Browse" />
+      <ImageView fx:id="imgView" fitHeight="150.0" fitWidth="200.0" layoutX="400.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

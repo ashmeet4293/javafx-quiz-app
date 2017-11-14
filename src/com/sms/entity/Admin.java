@@ -5,6 +5,10 @@
  */
 package com.sms.entity;
 
+import java.io.FileInputStream;
+import javafx.scene.image.Image;
+import javax.imageio.stream.FileImageInputStream;
+
 /**
  *
  * @author ashmeet
@@ -16,6 +20,8 @@ public class Admin {
     private String password;
     private String securityQuestion;
     private String securityAnswer;
+    private FileInputStream fis;
+    private Image img;
 
     public Admin() {
 
@@ -67,6 +73,14 @@ public class Admin {
 
     public void setSecurityAnswer(String securityAnswer) {
         this.securityAnswer = securityAnswer;
+    }
+
+    public FileInputStream getFis() {
+        return fis;
+    }
+
+    public void setFis(FileInputStream fis) {
+        this.fis = fis;
     }
 
   

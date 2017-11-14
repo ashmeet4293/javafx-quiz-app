@@ -6,14 +6,24 @@
 package admindashboard;
 
 import com.sms.entity.Admin;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -21,9 +31,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pckgcommon.Common;
 import pckgdatabase.AdminDBUtils;
@@ -61,11 +75,27 @@ public class AdminController implements Initializable {
     @FXML
     private TableView<Admin> tblAdminData;
 
+    @FXML
+    private TextField txtSearchField;
+
     private Admin admin;
     private AdminDBUtils adminDBUtils;
-    ObservableList<Admin> listOfAdmin;
+    FileChooser fileChooser;
+    File file;
+    FileInputStream fis;
+    private Image image;
+//   ObservableList<Admin> adminList ;
+
+    ObservableList<Admin> adminList = FXCollections.observableArrayList();
+
+    FilteredList<Admin> filteredData;
+//    = new FilteredList<>(adminList, e -> true);
     @FXML
-    private Label lblShow;
+    private Button btnBrowse;
+    @FXML
+    private ImageView imgView;
+    @FXML
+    private TableColumn<Admin, FileInputStream> colImages;
 
     /**
      * Initializes the controller class.
@@ -106,7 +136,7 @@ public class AdminController implements Initializable {
     }
 
     @FXML
-    private void handleSaveAction(ActionEvent event) {
+    private void handleSaveAction(ActionEvent event) throws FileNotFoundException {
         admin = new Admin();
         adminDBUtils = new AdminDBUtils();
         String securityQuestion = cmbSecurityQuestions.getSelectionModel().getSelectedItem();
@@ -115,9 +145,12 @@ public class AdminController implements Initializable {
         admin.setPassword(txtPassword.getText());
         admin.setSecurityQuestion(securityQuestion);
         admin.setSecurityAnswer(txtSecurityAnswer.getText());
+        fis = new FileInputStream(file);
+        admin.setFis(fis);
 
         if (adminDBUtils.createAdmin(admin)) {
             System.out.println("Admin inserted Successfully");
+
             clear();
         }
 
@@ -139,22 +172,25 @@ public class AdminController implements Initializable {
         txtPassword.clear();
         txtSecurityAnswer.clear();
         cmbSecurityQuestions.getSelectionModel().clearSelection();
+        imgView.setImage(null);
     }
 
     @FXML
     private void hanldeLoadAction(ActionEvent event) {
-        
+
         admin = new Admin();
         adminDBUtils = new AdminDBUtils();
-        listOfAdmin = adminDBUtils.fetchData();
-        if ((listOfAdmin) != null) {
+        adminList = adminDBUtils.fetchData();
+        if ((adminList) != null) {
             colId.setCellValueFactory(new PropertyValueFactory<>("id"));
             colAdminName.setCellValueFactory(new PropertyValueFactory<>("adminName"));
             colPassword.setCellValueFactory(new PropertyValueFactory<>("password"));
             colSecurityQuestion.setCellValueFactory(new PropertyValueFactory<>("securityQuestion"));
             colSecurityAnswer.setCellValueFactory(new PropertyValueFactory<>("securityAnswer"));
+//            colImages.setCellFactory(new PropertyValueFactory<>("fis"));
 
-            tblAdminData.setItems(listOfAdmin);
+            tblAdminData.setItems(adminList);
+            filteredData = new FilteredList<>(adminList, e -> true);
 
         } else {
             System.out.println("No data found ");
@@ -162,18 +198,33 @@ public class AdminController implements Initializable {
     }
 
     @FXML
-    private void hanldeMouseClickeAction(MouseEvent event) {
+    private void hanldeMouseClickeAction(MouseEvent event) throws IOException {
         showTableDataOnFields();
 
     }
 
-    void showTableDataOnFields() {
+    void showTableDataOnFields() throws FileNotFoundException, IOException {
         Admin admin = (Admin) tblAdminData.getSelectionModel().getSelectedItem();
         txtId.setText("" + admin.getId());
         txtName.setText(admin.getAdminName());
         txtPassword.setText(admin.getPassword());
         cmbSecurityQuestions.setValue(admin.getSecurityQuestion());
         txtSecurityAnswer.setText(admin.getSecurityAnswer());
+        InputStream is=admin.getFis();
+//        is = rs.getBinaryStream("image");
+
+//        if (is != null) {
+//            OutputStream os = new FileOutputStream(new File("photo.jpg"));
+//            byte[] content = new byte[1024];
+//            while ((is.read(content) > 0)) {
+//                os.write(content);
+//            }
+//            is.close();
+//            image = new Image("file:photo.jpg");
+//            imgView.setImage(image);
+//        } else {
+//            imgView.setImage(null);
+//        }
 
     }
 
@@ -185,5 +236,53 @@ public class AdminController implements Initializable {
 
         Stage current = (Stage) txtPassword.getScene().getWindow();
         current.hide();
+    }
+
+    @FXML
+    private void hanldeKeyReleased(KeyEvent event) {
+        txtSearchField.textProperty().addListener((observalbleValue, oldValue, newValue) -> {
+            filteredData.setPredicate((Predicate<? super Admin>) admin1 -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                System.out.println("ADMIN NEW VALUE : " + lowerCaseFilter);
+//                String adminId=""+admin.getId();
+                Integer id = admin1.getId();
+                if (id.toString().contains(newValue)) {
+                    return true;
+                }
+//                if (adminId.contains(newValue)) {
+//                    return true;
+//                }
+                if (admin1.getAdminName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+//                if (admin.().toLowerCase().contains(lowerCaseFilter)) {
+//                    return true;
+//                }
+                return false;
+            });
+        });
+        SortedList<Admin> sortedData = new SortedList<>(filteredData);
+        System.out.println("Datas are : " + filteredData);
+        sortedData.comparatorProperty().bind(tblAdminData.comparatorProperty());
+        tblAdminData.setItems(sortedData);
+    }
+
+    @FXML
+    private void hanldeBrowseAction(ActionEvent event) {
+        fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.gif", "*.png", "*.JPG")
+        );
+        Stage current = (Stage) txtSearchField.getScene().getWindow();
+        file = fileChooser.showOpenDialog(current);
+
+        if (file != null) {
+            image = new Image(file.toURI().toString());
+            imgView.setImage(image);
+        }
+
     }
 }

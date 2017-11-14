@@ -2,6 +2,7 @@ package pckgdatabase;
 
 import com.sms.entity.Admin;
 import com.sms.entity.Student;
+import java.io.InputStream;
 import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ public class AdminDBUtils {
 
     public boolean createAdmin(Admin admin) {
         if (connection != null) {
-            String query = "INSERT INTO admin (Admin_Name,password,security_question,Answer) VALUES (?,?,?,?)";
+            String query = "INSERT INTO admin (Admin_Name,password,security_question,Answer,images) VALUES (?,?,?,?,?)";
             try {
 
                 preparedStatement = connection.prepareStatement(query);
@@ -29,6 +30,7 @@ public class AdminDBUtils {
                 preparedStatement.setString(2, admin.getPassword());
                 preparedStatement.setString(3, admin.getSecurityQuestion());
                 preparedStatement.setString(4, admin.getSecurityAnswer());
+                preparedStatement.setBinaryStream(5, (InputStream)admin.getFis());
 
                 preparedStatement.execute();
                 connection.close();

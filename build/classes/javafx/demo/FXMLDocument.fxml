@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -29,5 +30,10 @@
             <Label text="Login AS" GridPane.rowIndex="2" />
          </children>
       </GridPane>
+      <ImageView fx:id="imgLogin" fitHeight="91.0" fitWidth="110.0" layoutX="418.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../com/quiz/images/How-I-feel-when-my-code-works.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>
