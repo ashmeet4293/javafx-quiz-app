@@ -1,1 +1,1 @@
-# javafx-with-jdbc
+# Sample Javafx Quiz Application
